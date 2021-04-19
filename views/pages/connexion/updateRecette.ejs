@@ -1,0 +1,54 @@
+<%- include('./admin.ejs') %>
+    <% if(locals.message) { %>
+        <div class="ui green message">
+            <%- message %>
+        </div>
+        <% } %>
+            <% if(locals.ErrMessage) { %>
+                <div class="ui red message">
+                    <%- ErrMessage %>
+                </div>
+                <% } %>
+                    <% if(locals.recettes) { for(recette of recettes) { %>
+                        <div>
+                            <form  method="post">
+                                <div class='ui form' >
+                                    <div class="field">
+                                        <label>Title *</label>
+                                        <input type="text" name='title' value="<%- recette.title %>">
+                                    </div>
+                                    <div class="field">
+                                        <label>Photos *</label>  
+                                        <img src="/img/<%- recette.image %>"/> 
+                                        <input type="file" name ="image" />
+                                    </div>
+                                    <div class="field">
+                                        <label>Ingrédients *</label>
+                                        <input type="text" name='ingredients' value="<%- recette.ingredients %>">
+                                    </div>
+                                    <div>
+                                        <h3>Préparation</h3>
+                                        <div class="field">
+                                            <label>Temps de préparation</label>
+                                            <input type="time" name='temps_preparation'value="<%- recette.temps_preparation %>">
+                                        </div>
+                                        <div class="field">
+                                            <label>Temps de Repos</label>
+                                            <input type="time" name='temps_repos'value="<%- recette.temps_repos %>">
+                                        </div>
+                                        <div class="field">
+                                            <label>Temps de Cuisson</label>
+                                            <input type="time" name='temps_cuisson'value="<%- recette.temps_cuisson %>">
+                                        </div>
+                                    </div>
+                                    <h5>Commencer la recette *</h5>
+                                    <div class="field" >
+                                        <textarea name='text' value="<%- recette.text %>"><%- recette.text %></textarea >
+                                    </div>
+                                    <button class='ui button' type='submit' > Submit</button>
+
+                                </div>
+                            </form>
+                        </div>
+                        <% } } %>
+                            <%- include('../../include/footer.ejs') %>

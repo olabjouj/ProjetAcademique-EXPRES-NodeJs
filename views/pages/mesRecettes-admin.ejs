@@ -1,0 +1,38 @@
+<%- include('./connexion/admin.ejs') %>
+
+<body>
+    <h1>Toutes les recettes </h1>
+    <a href="/recettes">
+        <button class="ui basic button">
+            <i class="icon pencil alternate"></i>
+            Add recettes
+        </button>
+
+    </a>
+
+    <% for (data of datas) { %>
+
+        <div class="ui cards" >
+            <div class="card">
+                <div class="content">
+                    <div class="header">
+                        <%- data.title %>
+                            <a href="/updateRecette?id=<%= data.id%>"> <i class="edit icon"></i></a>
+                            <a href="/deleteRecette?id=<%= data.id%>"> <i class="trash icon"></i></a>
+                    </div>
+                    <div>
+                        <img src="/img/<%-data.image %>"/>
+                    </div>
+                    <div class="meta">
+                        <%- data.ingredients %>
+                    </div>
+                    <div class="description">
+                        <%- data.text %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<%- include('../../include/header.ejs') %>
+    <div>
+        <% if(locals.message) { %>
+            <div class="ui green message">
+                <%- message %>
+            </div>
+            <% } %>
+    </div>
+    <form action='/connexion/sinscrire' method="post" class="ui form" enctype="multipart/form-data">
+        <div class="field">
+            <label>Nom</label>
+            <input type="text" name="firstName" placeholder="Nom">
+        </div>
+        <div class="field">
+            <label>Prénom</label>
+            <input type="text" name="lastName" placeholder="Prénom">
+        </div>
+        <div class="field">
+            <label>Photo </label>
+            <input type="file" name ="image" />
+        </div>
+        <div class="field">
+            <label>Mail</label>
+            <input type="text" name="email" placeholder="Mail">
+        </div>
+        <div class="field">
+            <label>Téléphone</label>
+            <input type="text" name="telephone" placeholder="Téléphone">
+        </div>
+        <div class="field">
+            <label>Mot de passe</label>
+            <input type="text" name="motDePasse" placeholder="Mot de passe">
+        </div>
+        <div class="field">
+            <label>Confirmer Mot de passe</label>
+            <input type="text" name="confirmMotDePasse" placeholder="Mot de passe">
+        </div>
+
+        <button class="ui button" type="submit">Submit</button>
+    </form>
+    <%- include('../../include/footer.ejs') %>

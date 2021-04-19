@@ -1,0 +1,44 @@
+.backround{
+    background-image: url("/img/plats-cuisines.jpg");
+    background-size: 100%;
+    width: 100%;
+    height : 100%;
+    background-repeat: no-repeat;
+    border: 2px;
+    text-align: center;
+    margin: auto;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10%;
+
+     }
+     .apropos{
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+     }
+.user{
+    background-image: url("/img/rachel.png");
+    background-size: 50%;
+    width: 30%;
+    height : 30%;
+    background-repeat: no-repeat;
+    border: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 9%;
+     }
+     .cards{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        text-decoration: none;
+        align-content: flex-end;
+        /* justify-content: space-between; */
+     }
+     .card{
+        flex-wrap: wrap;
+        align-content: center; 
+        text-align-last: center;
+     }
+     

@@ -1,0 +1,25 @@
+<%- include('./connexion/admin.ejs') %>
+<body>
+    <h1>Toutes les commentaires </h1>
+
+
+    <% for (data of datas) { %>
+        <div class="ui relaxed divided list">
+            <div class="item">
+                <div class="content">
+                    <a href="/deleteComm?id=<%= data.idCommentaire%>"> <i class="trash icon"></i></a>
+                        <a class="header">
+                            <%- data.userName %>   
+                        </a>
+                        <div class="description">
+
+                            <%- data.idRecette %> 
+                            <%- data.comment %>     
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<%- include('../include/header.ejs') %>
+    <H1>Hello World</H1>
+    <div class="backround">
+        <h1>BIENVENUE chez RecetteAvecRabi</h1>
+    </div>
+
+    <% for (data of datas) { %>
+        <div class="ui three column grid">
+            <div class="row">
+                <div class="ui fluid card">
+                    <div class="content">
+                        <div class="image">
+                            <img src="/img/<%-data.image %>" />
+                        </div>
+
+                        <div class="header">
+                            <%- data.title %>
+                                <!-- <a href="/updateRecette?id=<%= data.id%>"> <i class="edit icon"></i></a>
+                                <a href="/deleteRecette?id=<%= data.id%>"> <i class="trash icon"></i></a> -->
+                        </div>
+
+                        <div class="meta">
+                            <%- data.ingredients %>
+                        </div>
+                        <div class="description">
+                            <%- data.text %>
+                        </div>
+                        <a href="/voirDetailRecette?id=<%= data.id%>">
+                            <button>Voire le Detail</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+            <%- include('../include/footer.ejs') %>
+
+
+                <!-- <div class="ui three column grid">
+                    <div class="column">
+                        <div class="ui fluid card">
+                            <div class="image">
+                                <img src="/img/<%-data.image %>" />
+                            </div>
+                            <div class="content">
+                                <a class="header">
+                                    <%- data.title %>
+                                </a>
+                                <a class="header">
+                                    <%- data.ingredients %>
+                                </a>
+                                <a class="header">
+                                    <%- data.text %>
+                                </a>
+                                <a href="/voirDetailRecette?id=<%= data.id%>">
+                                    <button>Voire le Detail</button></a>
+                            </div>
+                        </div>
+                    </div> -->

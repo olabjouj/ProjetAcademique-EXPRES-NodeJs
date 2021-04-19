@@ -1,0 +1,35 @@
+<%- include('../../include/header.ejs') %>
+    <%- include('../../include/include admin/header.ejs') %>
+        <div>
+            <% if(locals.message) { %>
+                <div class="ui red message">
+                    <%- message %>
+                </div>
+                <% } %>
+        </div>
+        <form class="ui form" action="/connexion" method="post">
+            <div class="field">
+                <label for="mail">e-mail :</label>
+                <input type="email" id="mail" name="email" placeholder="joe@schmoe.com">
+            </div>
+            <div class="field">
+                <label for="password">Mot de pass :</label>
+                <input type="password" id="motDePasse" name="motDePasse">
+            </div>
+            <div>
+                <a href='/connexion/admin'>
+                    <button class="ui button" type="submit">se connecter</button>
+                </a>
+            </div>
+           
+        </form>
+        </div>
+       
+        <br>
+
+        <a href='/connexion/sinscrire'>
+            <button class="ui button" type="submit">Cliquer ici pour créer un compte</button>
+        </a>
+
+        <%- include('../../include/include admin/footer.ejs') %>
+            <%- include('../../include/footer.ejs') %>

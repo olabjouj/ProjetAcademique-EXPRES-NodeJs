@@ -1,0 +1,82 @@
+<%- include('../../include/header.ejs') %>
+    <% if(locals.message) { %>
+        <div class="ui green message">
+            <%- message %>
+        </div>
+        <% } %>
+            <% if(locals.ErrMessage) { %>
+                <div class="ui red message">
+                    <%- ErrMessage %>
+                </div>
+                <% } %>
+                    <% if(locals.recettes) { for(recette of recettes) { %>
+                        <div>
+                            <h1>
+                                <%- recette.text %>
+                            </h1>
+                            <h2>
+                                <%- recette.ingredients %>
+                            </h2>
+                            <h3>
+                                <%- recette.title %>
+                            </h3>
+                            <img src="/img/<%- recette.image %>" />
+                            
+                        </div>
+                        <% } } %>
+                        <% if(locals.comments) { for(comment of comments) {%>
+                            <div class="content">
+                                  <div class="summary">
+                                    <a><%- comment.userName %></a> a écrit le
+                                    <div class="date">
+                                      <%- comment.created_at %>
+                                    </div>
+                                  </div>
+                                  <div class="extra text">
+                                      <%- comment.comment %>
+                                  </div> 
+                              </div>
+                          <% }}%>
+                        <form  method="post">
+                           
+                            <div class="ui form">
+                                <div class="field">
+                                    <label for="name">Name :</label>
+                                    <input type="text" id="name" name="userName">
+                                </div>
+                                <div class="field">
+                                    <label for="msg">Message :</label>
+                                    <textarea id="msg" name="comment"></textarea>
+                                </div>
+                                <button class="ui secondary button">SEND</button>
+                            </div>  
+                    </form>
+                      
+                 <!-- -------------------commentaires------------------------------------------------ -->
+                           
+                 <!-- <% if(locals.message) { %>
+                                <div class="ui green message">
+                                    <%- message %>
+                                </div>
+                                <% } %>
+                                    <% if(locals.ErrMessage) { %>
+                                        <div class="ui red message">
+                                            <%- ErrMessage %>
+                                        </div>
+                                        <% } %>
+                                            <% if(locals.commentaires) { for(commentaire of commentaires) { %>
+                                                <form  method="post">
+                                                    <div class="ui form">
+                                                        <div class="field">
+                                                            <label for="name">Name :</label>
+                                                            <input type="text" id="name" name="userName">
+                                                        </div>
+                                                        <div class="field">
+                                                            <label for="msg">Message :</label>
+                                                            <textarea id="msg" name="comment"></textarea>
+                                                        </div>
+                                                        <button class="ui secondary button">SEND</button>
+                                                    </div>
+                                                </form>
+                                                <% } } %>
+                                                    <%- include('../../include/footer.ejs') %> -->

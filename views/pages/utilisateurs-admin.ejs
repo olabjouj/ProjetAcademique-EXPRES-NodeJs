@@ -1,0 +1,27 @@
+<%- include('./connexion/admin.ejs') %>
+    <body>
+        <h1>Toutes les utilisateurs </h1>
+
+
+        <% for (data of datas) { %>
+            <div class="ui relaxed divided list">
+                <div class="item">
+                    <div class="content">
+                        <a href="/deleteUtilisateur?id=<%= data.id%>"> <i class="trash icon"></i></a>
+                        <img src="/img/<%- data.image %>" />
+                            <a class="header">
+                                <%- data.nom %>
+                                    <%- data.prenom %>
+                            </a>
+                            <div class="description">
+                                <%- data.email %> <br>
+                                    <%- data.telephone %>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+    </body>
+
+    </html>

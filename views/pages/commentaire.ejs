@@ -1,0 +1,54 @@
+<% if(locals.message) { %>
+    <div class="ui green message">
+        <%- message %>
+    </div>
+    <% } %>
+        <% if(locals.ErrMessage) { %>
+            <div class="ui red message">
+                <%- ErrMessage %>
+            </div>
+            <% } %>
+                                <form action="/voirDetailRecette>" method="post">
+                                    <div class="ui form">
+                                        <div class="field">
+                                            <label for="name">Name :</label>
+                                            <input type="text" id="name" name="userName">
+                                        </div>
+                                      
+                                        <div class="field">
+                                            <label for="msg">Message :</label>
+                                            <textarea id="msg" name="comment"></textarea>
+                                        </div>
+                                        <button class="ui secondary button">SEND</button>
+                                    </div>
+                                </form>
+
+                                <!-- app.post('/voirDetailRecette', (req, res) => {
+                                    let data = {
+                                        userName: req.body.userName,
+                                        comment : req.body.comment,
+                                        idCommentaire: req.body.idCommentaire,
+                                        created_at: new Date(),
+                                        idUtilisateur : 1 ,
+                                
+                                    }
+                                    if (data.userName && data.comment) {
+                                        connection.query('INSERT INTO Commentaires SET ?', data, (err, result) => {
+                                            if (err) throw err;
+                                            res.render('pages/connexion/voireDetailRecette', { message: 'Votre commentaire a été bien ajouter. Merci' })
+                                        });
+                                    } else {
+                                        res.render('pages/connexion/voireDetailRecette>', { ErrMessage: 'Vous devez remplir tous les champs. Merci' })
+                                    }
+                                })
+                                app.get('/voirDetailRecette', (req, res) => {
+                                    console.log('hello  my id', req.query.id);
+                                
+                                    const idRecette = req.query.id;
+                                    let sqlQuery = 'SELECT * FROM Recettes INNER JOIN Commentaires on Recettes.id = Commentaires.idRecette ';
+                                    connection.query(sqlQuery, [idRecette], (err, result) => {
+                                        if (err) throw err;
+                                        console.log('my data is number 1==>', result);
+                                        res.render('pages/connexion/voireDetailRecette', { recettes: result })
+                                    })
+                                });                            -->

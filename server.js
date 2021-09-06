@@ -28,6 +28,8 @@ app.set('views', path.join(__dirname, 'views'))
 
 
 app.use(express.static('public'))
+app.use(express.json());
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -104,11 +106,12 @@ app.post('/connexion/sinscrire', upload.single('image'), async (req, res) => {
 app.post('/voirDetailRecette', (req, res) => { 
     console.log('je suis la oumayma' ,req.query.id )
     const idRecette = req.query.id;
+
     let data = {
         userName: req.body.userName,
         comment : req.body.comment,
         created_at: new Date(),
-        idRecette : 25
+        idRecette : req.query.id
     }
     console.log('je suis la oumayma' ,data )
     if (data.userName && data.comment) {

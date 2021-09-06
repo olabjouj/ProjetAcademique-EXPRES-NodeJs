@@ -6,139 +6,129 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
+const { log } = require('console');
 
 class AdminRecettes {
 
-    static getRecettes(req, res){
+    static getRecettes(req, res) {
         res.render('index')
     }
-    static accueilRecette(req, res){
+    static accueilRecette(req, res) {
         let sqlQuery = 'SELECT * FROM Recettes ORDER BY created_at  DESC  LIMIT 3';
-    connection.query(sqlQuery, (err, result) => {
-        if (err) throw err;
-        res.render('pages/accueil', { datas: result })
-    })
+        connection.query(sqlQuery, (err, result) => {
+            if (err) throw err;
+            res.render('pages/accueil', { datas: result, user: req.user })
+        })
     }
-    static showConnex (req, res){
+    static showConnex(req, res) {
         res.render('pages/connexion/connexion')
     }
-    static aproposRecette(req , res){
+    static aproposRecette(req, res) {
         let sqlQuery = 'SELECT * FROM Recettes ORDER BY created_at  DESC  LIMIT 6';
 
-    connection.query(sqlQuery, (err, result) => {
-        if (err) throw err;
-        res.render('pages/apropos', { datas: result })
-    })
+        connection.query(sqlQuery, (err, result) => {
+            if (err) throw err;
+            res.render('pages/apropos', { datas: result })
+        })
     }
-    static recette (req,res){
-        res.render('pages/recettes')
+    static recette(req, res) {
+        res.render('pages/recettes', { user: req.user })
     }
-    static connexionRecette(req,res){
-        res.render('pages/connexion/admin')
+    static connexionRecette(req, res) {
+        res.render('pages/connexion/admin', { user: req.user })
     }
-    static recetteAdmin(req,res){
+    static recetteAdmin(req, res) {
+
         let sqlQuery = 'SELECT * FROM Recettes';
 
-    connection.query(sqlQuery, (err, result) => {
-        if (err) throw err;
-        res.render('pages/mesRecettes-admin', { datas: result })
-    })
+        connection.query(sqlQuery, (err, result) => {
+            if (err) throw err;
+            res.render('pages/mesRecettes-admin', { datas: result, user: req.user })
+        })
     }
-    static utilisateurAdmin(req,res){
+    static utilisateurAdmin(req, res) {
         let sqlQuery = 'SELECT * FROM Utilisateurs';
 
-    connection.query(sqlQuery, (err, result) => {
-        if (err) throw err;
-        res.render('pages/utilisateurs-admin', { datas: result })
-    })
+        connection.query(sqlQuery, (err, result) => {
+            if (err) throw err;
+            res.render('pages/utilisateurs-admin', { datas: result, user: req.user })
+        })
     }
-    static connex(req,res){
-        try {
-            let data = {
-                email: req.body.email,
-                motDePasse: req.body.motDePasse,
-            }
-            if (!data.email || !data.motDePasse) {
-                return res.status(400).render('pages/connexion/connexion', {
-                    message: 'Vérifiez ton mail ou mot de passe SVP'
-                })
-            }
-            console.log('etape3', data)
-            connection.query('SELECT * FROM Utilisateurs WHERE email = ?', [data.email], async (error, resultas) => {
-                console.log('voila mon console', resultas);
-                if (resultas.length < 1 || !(await bcrypt.compare(data.motDePasse, resultas[0].motDePasse))) {
-    
-                    res.status(401).render('pages/connexion/connexion', {
-                        message: 'Le mail ou le mot de passe est incorrect'
-                    })
-                } else {
-                    const id = resultas[0].id;
-    
-                    const token = jwt.sign({ id }, process.env.JWT_SECRET, {
-                        expiresIn: process.env.JWT_EXPIRES_IN
-                    });
-                    console.log('The token is: ' + token);
-    
-                    const cookieOptions = {
-                        expires: new Date(
-                            Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60
-                        ),
-                        httpOnly: true
-                    }
-                    console.log('le fedrinier toto')
-                    res.redirect("/connexion/admin");
-                    res.cookie('jwt', token, cookieOptions)
-                }
-            })
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    static CommAdmin(req,res){
+
+    static CommAdmin(req, res) {
         let sqlQuery = 'SELECT * FROM Commentaires';
 
-    connection.query(sqlQuery, (err, result) => {
-        if (err) throw err;
-        res.render('pages/Comm-Admin', { datas: result })
-    })
-    
+        connection.query(sqlQuery, (err, result) => {
+            if (err) throw err;
+            res.render('pages/Comm-Admin', { datas: result, user: req.user })
+        })
+
     }
-    static deleteComm(req,res){
+    static updateUser(req, res) {
+        let user = {
+            id: req.query.userId,
+            admin: req.query.admin,
+
+        }
+        let sqlQuery = 'UPDATE Utilisateurs SET ? WHERE id = ?';
+        connection.query(sqlQuery, [user, user.id], (err, result) => {
+            if (err) throw err;
+            else {
+                res.status(200).json({ message: 'user updated' })
+
+            }
+        });
+    }
+    static deleteComm(req, res) {
         console.log(' my id deleteComm', req.query.id);
 
-    const idRecette = req.query.id;
+        const idRecette = req.query.id;
 
-    let sqlQuery = 'DELETE FROM Commentaires WHERE idCommentaire = ?';
-    connection.query(sqlQuery, [idRecette], (err, result) => {
-        if (err) throw err;
-        console.log('deleteComm==>', result);
-        res.redirect('/commentaire')
-    });
+        let sqlQuery = 'DELETE FROM Commentaires WHERE idCommentaire = ?';
+        connection.query(sqlQuery, [idRecette], (err, result) => {
+            if (err) throw err;
+            console.log('deleteComm==>', result);
+            res.redirect('/admin/commentaire')
+        });
     }
-    static deleteUtilisateur (req, res){
+    static deleteRecette(req, res) {
+        console.log(' my id delete', req.query.id);
+        let params = [
+            req.body,
+            req.query.id
+        ]
+
+        let sqlQuery = 'DELETE FROM Recettes ? WHERE id = ?';
+        connection.query(sqlQuery, params, (err, result) => {
+            if (err) throw err;
+            res.redirect('admin/recettes-admin', { user: req.user })
+        });
+
+    }
+    static deleteUtilisateur(req, res) {
         console.log(' my utilisateur id delete', req.query.id);
 
-    const id = req.query.id;
+        const id = req.query.id;
 
-    let sqlQuery = 'DELETE FROM Utilisateurs WHERE id = ?';
-    connection.query(sqlQuery, [id], (err, result) => {
-        if (err) throw err;
-        console.log('my data is number 1==>', result);
-        res.redirect('/utilisateurs-admin')
-    });
+        let sqlQuery = 'DELETE FROM Utilisateurs WHERE id = ?';
+        connection.query(sqlQuery, [id], (err, result) => {
+            if (err) throw err;
+            console.log('my data is number 1==>', result);
+            res.redirect('/admin/utilisateurs-admin')
+        });
     }
-    static profilAdmin (req, res) {
-        
+    static profilAdmin(req, res) {
+
         console.log('hello  my id profil', req.query.id);
-    const idUtilisateur = req.query.id;
-    let sqlQuery = 'SELECT * FROM Utilisateurs WHERE id = ?';
-    connection.query(sqlQuery, [idUtilisateur], (err, result) => {
-        if (err) throw err;
-        console.log('my data is profil number 1==>', result);
-        res.render('pages/profilAdmin', { datas: result })
-    });
+        const idUtilisateur = req.query.id;
+        let sqlQuery = 'SELECT * FROM Utilisateurs WHERE id = ?';
+        connection.query(sqlQuery, [idUtilisateur], (err, result) => {
+            if (err) throw err;
+            console.log('my data is profil number 1==>', result);
+            res.render('pages/profilAdmin', { datas: result, user: req.user })
+        });
     }
 }
 
 
-module.exports = AdminRecettes ;
+module.exports = AdminRecettes;

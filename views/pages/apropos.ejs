@@ -1,39 +1,45 @@
 <%- include('../include/header.ejs') %>
-    <div class="backround">
-        <h1>BIENVUNE chez RecetteAvecRabi</h1>
+    <div class='backround2'>
+        <form class='apropos'>
+            <h1>A PROPOS</h1>
+    
+            <p> Notre Site internet de cuisine propose des recettes faciles et inratable .</p>
+            <p> Vous pouvez s’inscrire gratuitement sur notre site Recettes avec RABI, <br>
+                apporter des commentaires concernant les recettes présentées et
+                proposer aussi vos propres recettes.</p>
+        </form>
     </div>
-    <form class='apropos'>
-        <h3>A PROPOS</h3>
-
-        <p> Notre Site internet de cuisine propose des recettes faciles et inratable .</p>
-        <p> Vous pouvez s’inscrire gratuitement sur notre site Recettes avec RABI, <br>
-            apporter des commentaires concernant les recettes présentées et
-            proposer aussi vos propres recettes.</p>
-    </form>
+   
 
     <% for (data of datas) { %>
-        <div class="ui cards recette">
-            <div class="card">
-                <div class="content">
-                    <div class="header">
-                        <%- data.title %>
-                            <!-- <a href="/updateRecette?id=<%= data.id%>"> <i class="edit icon"></i></a>
+        <div class="ui three column grid">
+            <div class="row">
+                <div class="ui fluid card">
+                    <div class="content">
+                        <div class="image">
+                            <div class="header">
+                                <%- data.title %>
+                                    <!-- <a href="/updateRecette?id=<%= data.id%>"> <i class="edit icon"></i></a>
                                     <a href="/deleteRecette?id=<%= data.id%>"> <i class="trash icon"></i></a> -->
-                    </div>
+                            </div>
 
-                    <img src="/img/<%-data.image %>" />
+                            <img src="/img/<%-data.image %>" />
 
-                    <div class="meta">
-                        <%- data.ingredients %>
+                            <div class="meta">
+                                <%- data.ingredients %>
+                            </div>
+                            <div class="description">
+                                <%- data.text %>
+                            </div>
+                            <a href="/voirDetailRecette?id=<%= data.id%>">
+                                <button>Voire le Detail</button></a>
+                        </div>
                     </div>
-                    <div class="description">
-                        <%- data.text %>
-                    </div>
-                    <a href="/voirDetailRecette?id=<%= data.id%>">
-                        <button>Voire le Detail</button></a>
                 </div>
+
             </div>
         </div>
+       
         <% } %>
 
             <%- include('../include/footer.ejs') %>

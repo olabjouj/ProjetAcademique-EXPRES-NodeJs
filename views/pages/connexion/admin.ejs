@@ -10,24 +10,27 @@
 <body>
     <form action='/connexion/admin' method="post">
         <div href="" class="ui menu">
+
             <a href="/admin/profil" class="header item">
                 Mon profil
             </a>
-            <a href='/admin/utilisateurs-admin' class="item">
-                Utilisateurs
-            </a>
-            <a href='/admin/recettes' class="item">
-                Ajouter une recette
-              </a>
-            <a href='/admin/recettes-admin' class="item">
-                Recettes
-              </a>
-            <a href='/admin/commentaire' class="item">
-                Commentaires
-            </a>
-            <a href="/accueil" class="header item">
-                Se deconnecter
-            </a>
+
+            <% if(user.admin) { %>
+                <a href='/admin/utilisateurs-admin' class="item">
+                    Utilisateurs
+                </a>
+                <a href='/admin/recettes-admin' class="item">
+                    Recettes
+                </a>
+                <a href='/admin/commentaire' class="item">
+                    Commentaires
+                </a>
+            <% } %>
+                    <a href='/admin/recettes' class="item">
+                        Ajouter une recette
+                    </a>
+                    <a href="/logout" class="header item">
+                        Se deconnecter </a>
         </div>
     </form>
 </body>

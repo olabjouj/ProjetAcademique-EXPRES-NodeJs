@@ -1,14 +1,15 @@
 <%- include('./connexion/admin.ejs') %>
 
-<body>
-    <h1>Toutes les recettes </h1>
-    <a href="/recettes">
+
+        <h1>Toutes les recettes </h1>
+        <!-- <a href="/recettes">
         <button class="ui basic button">
             <i class="icon pencil alternate"></i>
             Add recettes
         </button>
 
-    </a>
+    </a> -->
+       
 
     <% for (data of datas) { %>
 
@@ -33,6 +34,3 @@
             </div>
         </div>
         <% } %>
-</body>
-
-</html>

@@ -6,18 +6,21 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 const userContorller = require('../controllers/userController')
+const Authorization = require('../controllers/authorization')
 
 //---------------- User Routes----------------//
 
 app.get('/mesRecettes', userContorller.mesRecettes)
 app.get('/connexion/sinscrire', userContorller.showConnexionSinscrire)
 
-app.get('/updateRecette', userContorller.showUpdateRecette)
+app.get('/updateRecette', Authorization.checkLoggin, userContorller.showUpdateRecette)
+app.post('/updateRecette', Authorization.checkLoggin, userContorller.updateRecette)
+
+
 app.get('/voirDetailRecette', userContorller.voirDetailRecette)
 
-app.post('/updateRecette', userContorller.updateRecette)
-app.get('/deleteRecette', userContorller.deleteRecette)
+// app.get('/deleteRecette', userContorller.deleteRecette)
 
 // app.post('/connexion/sinscrire', upload.single('image'), userContorller.connexionSinscrire)
 
-module.exports= app ;
+module.exports = app;

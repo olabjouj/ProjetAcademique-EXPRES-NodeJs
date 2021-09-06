@@ -22,7 +22,7 @@ exports.mesRecettes = (req, res) => {
 
     connection.query(sqlQuery, (err, result) => {
         if (err) throw err;
-        res.render('pages/mesRecettes', { datas: result })
+        res.render('pages/mesRecettes', { datas: result, user:req.user })
     })
 }
 exports.showConnexionSinscrire =(req, res) => {
@@ -61,19 +61,20 @@ exports.updateRecette = (req, res) => {
         res.render('pages/connexion/updateRecette', { message: 'votre recette a été bien Modifier' })
     });
 }
-exports.deleteRecette = (req, res) => {
-    console.log(' my id delete', req.query.id);
+// exports.deleteRecette = (req, res) => {
+//     console.log(' my id delete', req.query.id);
+//     let params = [
+//         req.body,
+//         req.query.id
+//     ]
+   
+//     let sqlQuery = 'DELETE FROM Recettes WHERE id = ?';
+//     connection.query(sqlQuery, params, (err, result) => {
+//         if (err) throw err;
+//         res.redirect('admin/recettes-admin')
+//     });
 
-    const idRecette = req.query.id;
-
-    let sqlQuery = 'DELETE FROM Recettes WHERE id = ?';
-    connection.query(sqlQuery, [idRecette], (err, result) => {
-        if (err) throw err;
-        console.log('my data is number 1==>', result);
-        res.redirect('/recettes-admin')
-    });
-
-}
+// }
 // exports.connexionSinscrire = async (req, res) => {
 //     let hashedPassword = await bcrypt.hash(req.body.motDePasse, 8)
 //     console.log(hashedPassword);

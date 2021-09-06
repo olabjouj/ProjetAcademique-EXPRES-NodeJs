@@ -1,9 +1,2 @@
 <%- include('./connexion/admin.ejs') %>
-    <% for (data of datas) { %>
-        <a class="header">
-            <%- data.nom %>
-            <%- data.prenom %>
-            <%- data.email %> <br>
-            <%- data.telephone %>
-        </a>
-        <% } %>
+<%- user.id+' | '+user.nom+' | '+user.prenom %></h1>

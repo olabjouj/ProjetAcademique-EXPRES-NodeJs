@@ -1,4 +1,5 @@
 <%- include('./connexion/admin.ejs') %>
+
     <body>
         <h1>Toutes les utilisateurs </h1>
 
@@ -9,19 +10,36 @@
                     <div class="content">
                         <a href="/deleteUtilisateur?id=<%= data.id%>"> <i class="trash icon"></i></a>
                         <img src="/img/<%- data.image %>" />
-                            <a class="header">
-                                <%- data.nom %>
-                                    <%- data.prenom %>
-                            </a>
-                            <div class="description">
-                                <%- data.email %> <br>
-                                    <%- data.telephone %>
-                            
+                        <a class="header">
+                            <%- data.nom %>
+                                <%- data.prenom %>
+                        </a>
+                        <div class="description">
+                            <%- data.email %> <br>
+                                <%- data.telephone %>
+
+                        </div>
+                        <div>
+                            <input id="<%= data.id%>" type="checkbox" <%=data.admin?"checked":"uncheked"%>
+                            onClick="setAsAdmin('<%= data.id%>')">
                         </div>
                     </div>
                 </div>
             </div>
             <% } %>
+                <script>
+                    function setAsAdmin(userId) {
+                        if (document.getElementById(userId).checked) {
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.open("POST", "/updateUser?userId=" + userId+"&admin=1", true);
+                            xmlhttp.send();
+                        } else {
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.open("POST", "/updateUser?userId=" + userId+"&admin=0", true);
+                            xmlhttp.send();
+                        }
+                    }
+                </script>
     </body>
 
     </html>
